@@ -3,8 +3,12 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connectToDb } from "@/dbConfig/dbConfig";
 connectToDb();
+interface ForgotPasswordRequest {
+  token: string;
+  confirmPassword: string;
+}
 export async function POST(req: NextRequest) {
-  const reqBody = await req.json();
+  const reqBody:ForgotPasswordRequest = await req.json();
   const { token, confirmPassword } = reqBody;
 
   if (!token) {

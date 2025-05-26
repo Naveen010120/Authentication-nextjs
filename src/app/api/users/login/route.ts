@@ -4,9 +4,13 @@ import { NextResponse,NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 connectToDb();
+interface LoginRequest {
+  email: string;
+  password: string;
+}
 export async function POST(req:NextRequest){
     try{
-     const ReqBody=await req.json();
+     const ReqBody:LoginRequest=await req.json();
      const {email,password}=ReqBody;
      console.log(email,password);
      const user=await  User.findOne({email});
@@ -32,7 +36,11 @@ export async function POST(req:NextRequest){
      return response;
     
  }
- catch(error:any){
-    return NextResponse.json({message:error.message},{status:500})
+ catch(error){
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("Unknown error");
+    }
  }
 }

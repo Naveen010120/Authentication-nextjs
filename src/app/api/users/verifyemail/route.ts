@@ -23,7 +23,11 @@ export async function POST(req:NextRequest){
         await user.save();
         return NextResponse.json({message:'Email Verified',success:true})
         
-    } catch (error:any) {
-        return NextResponse.json({error:error.message},{status:5000})
+    } catch (error) {
+         if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("Unknown error");
+    }
     }
 }

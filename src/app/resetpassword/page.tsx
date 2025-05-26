@@ -27,7 +27,7 @@ export default function PasswordForm() {
         const res=await axios.post('/api/users/resetpassword',{token,confirmPassword:password.confirmPassword});
         toast.success(res.data.message)
         
-    } catch (error:any) {
+    } catch (error) {
         toast.error(error.response?.data?.message)
     }
   }

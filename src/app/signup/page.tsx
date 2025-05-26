@@ -25,6 +25,7 @@ export default function SignUpPage(){
       try{
         setLoading(true);
         const res=await axios.post("/api/users/signup",user);
+        console.log(res)
         toast.success('signup sucess');
         setTimeout(()=>{
 
