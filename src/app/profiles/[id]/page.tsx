@@ -1,8 +1,9 @@
 
 interface Props{
-    params: {
-        id: string;
-    };
+    params: PropId
+}
+interface PropId{
+    id:string
 }
 export default async function UserProfilePage({ params }: Props) {
     const {id}=params;
