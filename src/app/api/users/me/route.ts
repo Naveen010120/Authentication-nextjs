@@ -12,7 +12,13 @@ export async function GET(request:NextRequest){
         data:user
      })
     }
-    catch(error:any){
-        return NextResponse.json({error:error.message},{status:400})
-    }
+   catch (error: unknown) {
+       if (error instanceof Error) {
+         console.error('Error:', error.message);
+         return NextResponse.json({ message: error.message },{status:500});
+       } else {
+         console.error('Unexpected error:', error);
+         return NextResponse.json({ message: 'Something went wrong' },{status:500});
+       }
+     }
 }

@@ -25,9 +25,13 @@ export default function LoginPage() {
       toast.success(res.data.message);
 
       router.push("/profiles");
-    } catch (error: any) {
-      toast.error(error.response?.data?.message);
-    } finally {
+    } catch (error: unknown) {
+  if (error instanceof Error) {
+    toast.error(error.message);
+  } else {
+    toast.error("Unknown error occurred");
+  }
+} finally {
       setLoading(false);
     }
   };

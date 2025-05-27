@@ -27,9 +27,13 @@ export default function PasswordForm() {
         const res=await axios.post('/api/users/resetpassword',{token,confirmPassword:password.confirmPassword});
         toast.success(res.data.message)
         
-    } catch (error) {
-        toast.error(error.response?.data?.message)
-    }
+    } catch (error: unknown) {
+  if (error instanceof Error) {
+    toast.error(error.message);
+  } else {
+    toast.error("Unknown error occurred");
+  }
+}
   }
    
       useEffect(() => {

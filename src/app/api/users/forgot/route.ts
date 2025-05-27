@@ -23,7 +23,13 @@ export async function POST(req: NextRequest) {
        const resetPass= await sendEmail({email:user.email,emailType:'RESET',userId:user._id});
        console.log(resetPass)
         return NextResponse.json({ emailUser: user._id }, { status: 200 });
-    } catch (error: any) {
-        return NextResponse.json({ message: error.message }, { status: 500 });
+    } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+      return NextResponse.json({ message: error.message },{status:500});
+    } else {
+      console.error('Unexpected error:', error);
+      return NextResponse.json({ message: 'Something went wrong' },{status:500});
     }
+  }
 }

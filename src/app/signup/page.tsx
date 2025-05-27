@@ -32,10 +32,13 @@ export default function SignUpPage(){
           router.push('/login')
         },3000)
 
-      } catch(error:any){
-        console.log("signup failed:",error.message)
-        toast.error(error.message)
-      }
+      } catch (error: unknown) {
+  if (error instanceof Error) {
+    toast.error(error.message);
+  } else {
+    toast.error("Unknown error occurred");
+  }
+}
       finally{
         setLoading(false);
       }

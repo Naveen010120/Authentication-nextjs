@@ -16,9 +16,13 @@ export default function ProfilePage() {
      toast.success(res.data.message);
      router.push('/login')
     }
-    catch(error:any){
-      toast.error(error.message)
-    }
+    catch (error: unknown) {
+  if (error instanceof Error) {
+    toast.error(error.message);
+  } else {
+    toast.error("Unknown error occurred");
+  }
+}
   }
   const getUserDetails=async()=>{
     try{
@@ -26,9 +30,13 @@ export default function ProfilePage() {
      console.log(res.data);
      setData(res.data.data._id)
     }
-    catch(error:any){
-
-    }
+catch (error: unknown) {
+  if (error instanceof Error) {
+    toast.error(error.message);
+  } else {
+    toast.error("Unknown error occurred");
+  }
+}
   }
   return (
     <div>
